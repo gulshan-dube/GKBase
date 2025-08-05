@@ -1,0 +1,30 @@
+import json
+import boto3
+import uuid
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('GKBaseFacts')
+
+def lambda_handler(event, context):
+    body = json.loads(event['body'])
+    category = body.get('category')
+    fact = body.get('fact')
+
+    if not category or not fact:
+        return {
+            'statusCode': 400,
+            'body': json.dumps({'error': 'Missing category or fact'})
+        }
+
+    item = {
+        'id': str(uuid.uuid4()),
+        'category': category,
+        'fact': fact
+    }
+
+    table.put_item(Item=item)
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps({'message': 'Fact added', 'item': item})
+    }
