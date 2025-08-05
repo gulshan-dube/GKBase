@@ -53,8 +53,9 @@ GKBaseProject/
 API Gateway (GKBaseAPI)
 
 Routes:
-- GET /get-facts → fetch facts from DynamoDB
-- POST /add-fact → store new fact with UUID
+- GET /get-facts → fetch facts from DynamoDB - Receives a new fact via HTTP API and stores it in DynamoDB
+- POST /add-fact → store new fact with UUID - Retrieves all stored facts from DynamoDB via HTTP API
+
 
 Integration: Connected to Lambda functions
 Stage: $default with automatic deployment
