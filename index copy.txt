@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fun Facts</title>
+</head>
+<body>
+  <h1>Add a Fun Fact</h1>
+
+  <form id="factForm">
+    <input type="text" id="categoryInput" placeholder="Category" required />
+    <input type="text" id="factInput" placeholder="Fact" required />
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>All Facts</h2>
+  <div id="facts"></div>
+
+  <script>
+    const apiBase = 'https://vecrrfuu2j.execute-api.us-east-1.amazonaws.com';
+
+    const form = document.getElementById('factForm');
+    const input = document.getElementById('factInput');
+    const categoryInput = document.getElementById('categoryInput');
+    const factsContainer = document.getElementById('facts');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fact = input.value.trim();
+      const category = categoryInput.value.trim();
+      if (!fact || !category) return;
+
+      try {
+        const response = await fetch(`${apiBase}/add-fact`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ category, fact })
+        });
+
+        if (response.ok) {
+          input.value = '';
+          categoryInput.value = '';
+          loadFacts();
+        } else {
+          alert('Failed to submit fact.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error submitting fact.');
+      }
+    });
+
+    async function loadFacts() {
+      try {
+        const response = await fetch(`${apiBase}/get-facts`);
+        const data = await response.json();
+        factsContainer.innerHTML = '';
+        data.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'fact';
+          div.textContent = `${item.category}: ${item.fact}`;
+          factsContainer.appendChild(div);
+        });
+      } catch (err) {
+        console.error(err);
+        factsContainer.innerHTML = '<p>Failed to load facts.</p>';
+      }
+    }
+
+    loadFacts();
+  </script>
+</body>
+</html>
