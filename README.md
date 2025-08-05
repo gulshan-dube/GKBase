@@ -1,6 +1,6 @@
 # 🧠 GKBase – Serverless Knowledge Hub
 
-GKBase is a lightweight serverless web app designed to store and retrieve fun facts, trivia, and short knowledge bites. 
+GKBase is a lightweight serverless web app designed to store and retrieve fun facts.
 Built entirely on AWS with a simple frontend, it reflects a journey of hands-on learning and practical cloud architecture.
 
 ---
