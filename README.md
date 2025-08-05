@@ -38,12 +38,15 @@ This project was created as part of a personal learning journey:
 
 ## 📁 Project Structure
 
+```plaintext
 GKBaseProject/
-├── index.html                   # Frontend UI and logic
+├── index.html
 ├── lambda/
-│   ├── get-fact-function.py     # Lambda function: fetch all facts
-│   └── add-fact-function.py     # Lambda function: add a new fact
-└── README.md                    # This file
+│   ├── get-fact-function.py
+│   └── add-fact-function.py
+└── README.md
+```
+
 
 🔧 AWS Configuration Summary
 
